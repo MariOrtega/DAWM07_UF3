@@ -54,25 +54,27 @@
         <!-- opcions: Llistat d'opcions que conté  les funcionalitats del programa.
         Per cada funcionalitat (Afegir, Consultar, Filtrar i Modificar)
         s'ha d'enviar la següent informació: titol, desc, url, icon -->
-        <section class="container"> 
-            <c:forEach var="item" items="${opcions}">
-              
-                <div class="card" >
-                    <div class="col-sm-6 col-md-3">
-
-                        <div class="card-body thumbnail">
-                            <h1 class="card-title">${item.titol}</h1>
-                            <p class="card-text">${item.desc}.</p>
-                            <a href="<spring:url value= '${item.url}' />" class="btn btn-primary">
-                                <span class="${item.icon}" />Anar</a>
+        <section class="container">
+            <div class="row">
+                <c:forEach var="item" items="${opcions}">
+                    <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
+                        <div class="thumbnail">
+                            <div classs="caption">
+                                <h1 class="card-title">${item.titol}</h1>
+                                <p class="card-text">${item.desc}.</p>
+                                <a href="<spring:url value= '${item.url}' />" class="btn btn-primary">
+                                    <span class="${item.icon}" />Anar</a>
+                            </div>
 
                         </div>
+
+
                     </div>
-                </div>
-                </c:forEach>  
+                    </c:forEach>  
 
-        </section>  
-
+             
+            </div>
+        </section>
 
     </body>
 </html>
