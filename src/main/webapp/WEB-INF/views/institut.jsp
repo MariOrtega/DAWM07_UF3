@@ -60,7 +60,7 @@
                 <div class="card" >
                     <div class="col-sm-6 col-md-3">
 
-                        <div class="card-body thumbnail w-25 p-3">
+                        <div class="card-body thumbnail">
                             <h1 class="card-title">${item.titol}</h1>
                             <p class="card-text">${item.desc}.</p>
                             <a href="<spring:url value= '${item.url}' />" class="btn btn-primary">
