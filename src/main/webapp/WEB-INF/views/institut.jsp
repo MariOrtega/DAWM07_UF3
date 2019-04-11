@@ -55,19 +55,21 @@
         Per cada funcionalitat (Afegir, Consultar, Filtrar i Modificar)
         s'ha d'enviar la següent informació: titol, desc, url, icon -->
         <section class="container"> 
-            <c:forEach var="item" items="${opcions}">   
-                <div class="form-horizontal" style="width: 1000px;">
+            <c:forEach var="item" items="${opcions}">
+              
+                <div class="card" >
                     <div class="col-sm-6 col-md-3">
-                        <h1>${item.titol}</h1>
-                        <p>${item.desc}</p>
 
-                        <a href="<spring:url value= "${item.url}" />"  class="btn btn-primary" >
-                            <span class="${item.icon}">Anar</span>
-                        </a>
+                        <div class="card-body thumbnail w-25 p-3">
+                            <h1 class="card-title">${item.titol}</h1>
+                            <p class="card-text">${item.desc}.</p>
+                            <a href="<spring:url value= '${item.url}' />" class="btn btn-primary">
+                                <span class="${item.icon}" />Anar</a>
+
+                        </div>
                     </div>
                 </div>
-
-            </c:forEach>  
+                </c:forEach>  
 
         </section>  
 
