@@ -13,7 +13,7 @@ public class Estudiant extends Persona{
     private int anyMatricula;
     private int anyNeix;
 
-    public Estudiant(int anyMatricula, int anyNeix, String nom,String nif,String nss, long telefon) {
+    public Estudiant(String nom,String nif,String nss, long telefon,  int anyNeix, int anyMatricula) {
         super(nom,nif,nss,telefon);
         this.anyMatricula = anyMatricula;
         this.anyNeix = anyNeix;

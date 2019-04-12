@@ -25,7 +25,7 @@ public class Pas extends Persona{
  
  
  
-    public Pas(String carrec, String nom, String nif, String nss, long telefon) {
+    public Pas(String nom, String nif, String nss, long telefon, String carrec ) {
         super(nom, nif, nss, telefon);
         this.carrec = carrec;
     }

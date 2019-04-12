@@ -11,8 +11,8 @@
                            http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
 
-    <mvc:annotation-driven />
-    <context:component-scan base-package="cat.xtec.ioc.controller" />
+    <mvc:annotation-driven enable-matrix-variables="true"/>
+    <context:component-scan base-package="cat.xtec.ioc.controller cat.xtec.ioc.repository cat.xtec.ioc.service cat.xtec.ioc.domain" />
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/" />

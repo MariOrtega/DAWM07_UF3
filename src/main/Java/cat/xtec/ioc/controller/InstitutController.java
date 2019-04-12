@@ -17,6 +17,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import cat.xtec.ioc.service.PersonalService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.MatrixVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  *
@@ -25,6 +30,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 
 public class InstitutController {
+
+    @Autowired
+    PersonalService personalService;
 
     /*
     Crea un ModelAndView amb la vista “institut”i li proporciona la següent informació:
@@ -121,19 +129,100 @@ public class InstitutController {
         pas.put("desc", "Permet afegir un personal d'administració i serveis a l'institut");
         pas.put("url", "/afegir/Pas");
         pas.put("icon", "glyphicon glyphicon-flash");
-        
+
         //************************************************************************************************//
-        
         opcions.add(estudiant);
         opcions.add(professor);
         opcions.add(pas);
-        
+
         ModelAndView modelview = new ModelAndView("institut");
         modelview.getModelMap().addAttribute("cap", "Programa de gestió de l'Institut");
         modelview.getModelMap().addAttribute("accio", "Afegir una nova persona");
         modelview.getModelMap().addAttribute("opcions", opcions);
 
         return modelview;
+    }
+
+    /**
+     * Crea un ModelAndView amb la vista “obtenirForm”i li proporciona la
+     * següent informació: • cap: "Programa de Gestió de l'institut"
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/consultar", method = RequestMethod.GET)
+    public ModelAndView obtenirPersonaForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        ModelAndView modelview = new ModelAndView("obtenirForm");
+        modelview.getModelMap().addAttribute("cap", "Programa de gestió de l'Institut");
+        return modelview;
+
+    }
+
+    /**
+     * Crea un ModelAndView amb la vista “infoPersona”i li proporciona la
+     * següent informació: • cap: "Programa de Gestió de l'institut" • accio:
+     * "Dades d'una persona de l'institut" • p: Persona corresponent al nif
+     * enviat per l'usuari.
+     *
+     * @param request
+     * @param response
+     * @param nif
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/consultar", method = RequestMethod.POST)
+    public ModelAndView obtenirPersonatPerNif(@RequestParam String nif, HttpServletRequest request, HttpServletResponse response
+    ) throws ServletException, IOException {
+        ModelAndView modelview = new ModelAndView("infoPersona");
+        modelview.getModelMap().addAttribute("cap", "Programa de gestió de l'institut");
+        modelview.getModelMap().addAttribute("accio", "Dades d'una persona de l'institut");
+        modelview.getModelMap().addAttribute("p", personalService.obtenirPersonaPerNif(nif));
+        return modelview;
+    }
+
+    /**
+     * Crea un ModelAndView amb la vista “ajutFiltre”i li proporciona la següent
+     * informació: • cap: "Programa de Gestió de l'institut" • accio: “Ajut per
+     * la creació d'un Filtre”
+     *
+     * @return
+     */
+    @RequestMapping(value = "/filtrar", method = RequestMethod.GET)
+    public ModelAndView obtenirPersonesPerFiltre(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        ModelAndView modelview = new ModelAndView("ajutFiltre");
+        modelview.getModelMap().addAttribute("cap", "Programa de Gestió de l'Institut");
+        modelview.getModelMap().addAttribute("accio", "Ajut per la creació d'un Filtre");
+        return modelview;
+
+    }
+
+    /**
+     * Crea un ModelAndView amb la vista “personesPerFiltre”i li proporciona la
+     * següent informació: • cap: "Programa de Gestió de l'institut" • accio:
+     * "Llistat de persones que compleixen els requisits." • persona: Llistat de
+     * persones que compleixen el criteri proporcionat per l'usuari.
+     *
+     * @param filterParams
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/filtrar/{Criteri}", method = RequestMethod.GET)
+    public ModelAndView obtenirPersonesPerFiltre(@MatrixVariable(pathVar = "Criteri") Map<String, List<String>> filterParams, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ModelAndView modelview = new ModelAndView("personesPerFiltre");
+        modelview.getModelMap().addAttribute("cap", "Programa de gestió de l'Institut");
+        modelview.getModelMap().addAttribute("accio", "Llistat de persones que compleixen els requisits");
+        modelview.getModelMap().addAttribute("persona", personalService.obtenirPersonaPerFiltre(filterParams));
+        return modelview;
+
     }
 
 }
