@@ -42,7 +42,7 @@ public class AMemoriaPersonalRepository implements PersonalRepository{
        Professor prof3= new Professor("Pep Guardiola", "333333P","333333/P", 123987,"Educació física", "Gimnàstica");
        
        Pas pas1=new Pas("Miquel Gonzalez", "6666666M","666666/M",33333343,"Conserge");
-       Pas pas2=new Pas("Paco Perez", "121212P","121212/P",121212,"Vigilant");
+       Pas pas2=new Pas("Paco Perez", "111212P","111212/P",121212,"Vigilant");
        Pas pas3=new Pas("Maria Puig","343434M","343434/M",34343434,"Secretaria");
         
        
