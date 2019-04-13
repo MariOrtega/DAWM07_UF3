@@ -20,7 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import cat.xtec.ioc.service.PersonalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.MatrixVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -225,62 +229,96 @@ public class InstitutController {
         return modelview;
 
     }
-    
+
     /**
-     * Crea un ModelAndView amb la vista “modifica”i li proporciona la següent informació:
-    • cap:  "Programa de Gestió de l'institut"
-    • accio: "Modificació de les dades d'una persona."
+     * Crea un ModelAndView amb la vista “modifica”i li proporciona la següent
+     * informació: • cap: "Programa de Gestió de l'institut" • accio:
+     * "Modificació de les dades d'una persona."
+     *
      * @param request
      * @param response
      * @return
      * @throws ServletException
-     * @throws IOException 
+     * @throws IOException
      */
-    @RequestMapping(value="/modifica", method=RequestMethod.GET)
-    public ModelAndView modificaPersona(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
-       ModelAndView modelview= new ModelAndView("modifica"); 
-       modelview.getModelMap().addAttribute("cap", "Programa de gestió de L'Institut");
-       modelview.getModelMap().addAttribute("accio", "Modificació de les dades d'una persona");
-       return modelview;
+    @RequestMapping(value = "/modifica", method = RequestMethod.GET)
+    public ModelAndView modificaPersona(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ModelAndView modelview = new ModelAndView("modifica");
+        modelview.getModelMap().addAttribute("cap", "Programa de gestió de L'Institut");
+        modelview.getModelMap().addAttribute("accio", "Modificació de les dades d'una persona");
+        return modelview;
     }
+
     /*
      * Accedeix al servei modificarPersona i processa la modificació amb el nif proporcionat.
      * Reenvia a l'usuari a veure el nou estat de la persona. 
         L'adreça utilitzada és: /obtenirPersona/nif
      */
-     
-    @RequestMapping(value="/modifica/{nif}/{tel}", method=RequestMethod.GET)
-    public String modifica(@PathVariable String nif, @PathVariable long tel){
-        Persona p=personalService.obtenirPersonaPerNif(nif);
+
+    @RequestMapping(value = "/modifica/{nif}/{tel}", method = RequestMethod.GET)
+    public String modifica(@PathVariable String nif, @PathVariable long tel) {
+        Persona p = personalService.obtenirPersonaPerNif(nif);
         p.setTelefon(tel);
         personalService.modificarPersona(p);
-        return "redirect:/obtenirPersona/"+nif;
-       
-    
+        return "redirect:/obtenirPersona/" + nif;
+
     }
-    
+
     /**
-     * Crea un ModelAndView amb la vista “infoPersona”i li proporciona la següent informació:
-    • cap:  "Programa de Gestió de l'institut"
-    • accio: "Dades d'una persona de l'institut"
-    • p: Persona corresponent al nif enviat per l'usuari on es veurà la modificació.
+     * Crea un ModelAndView amb la vista “infoPersona”i li proporciona la
+     * següent informació: • cap: "Programa de Gestió de l'institut" • accio:
+     * "Dades d'una persona de l'institut" • p: Persona corresponent al nif
+     * enviat per l'usuari on es veurà la modificació.
+     *
+     * @param nif
      * @param request
      * @param response
      * @return
      * @throws ServletException
-     * @throws IOException 
+     * @throws IOException
      */
-    
-    @RequestMapping(value="/obtenirPersona/{nif}", method=RequestMethod.GET)
-     public ModelAndView obtenirPersonaPerPeticio(@PathVariable String nif,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
-         Persona p=personalService.obtenirPersonaPerNif(nif);
-         ModelAndView modelview= new ModelAndView("infoPersona"); 
-       modelview.getModelMap().addAttribute("cap", "Programa de gestió de L'Institut");
-       modelview.getModelMap().addAttribute("accio", "Dades d'una persona de l'Institut");
-       modelview.getModelMap().addAttribute("p",p);
-       return modelview;
+    @RequestMapping(value = "/obtenirPersona/{nif}", method = RequestMethod.GET)
+    public ModelAndView obtenirPersonaPerPeticio(@PathVariable String nif, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Persona p = personalService.obtenirPersonaPerNif(nif);
+        ModelAndView modelview = new ModelAndView("infoPersona");
+        modelview.getModelMap().addAttribute("cap", "Programa de gestió de L'Institut");
+        modelview.getModelMap().addAttribute("accio", "Dades d'una persona de l'Institut");
+        modelview.getModelMap().addAttribute("p", p);
+        return modelview;
     }
-     }
-     
 
+    /**
+     * El paràmetre “persona” ha de coincidir exactament amb el nom de la classe
+     * que es vol crear. Crea un ModelAndView amb la vista “afegir + persona” i
+     * li proporciona la següent informació: 
+     * • cap: "Programa de Gestió de l'institut" 
+     * • accio: “Afegir un " + tipusPersona + " a l'institut” 
+     * • persona: Es crea un objecte nou del tipus “persona”. Per fer-ho podeu
+     * utilitzar la següent funció: Class.forName("cat.xtec.ioc.domain." +
+     * tipusPersona).newInstance())
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/afegir/{tipusPersona}", method = RequestMethod.GET)
+    public ModelAndView afegirPersonaForm(@PathVariable String tipusPersona, HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        ModelAndView modelview=new ModelAndView("afegir"+tipusPersona);
+        modelview.getModelMap().addAttribute("cap", "Programa de Gestió de l'Institut");
+        modelview.getModelMap().addAttribute("accio", "Afegir un "+tipusPersona+" a l'Institut");
+        modelview.getModelMap().addAttribute("novaPersona", Class.forName("cat.xtec.ioc.domain."+tipusPersona).newInstance());
+        return modelview;
+    }
+   
+    @RequestMapping(value="/afegir/{persona}", method=RequestMethod.POST)
+    public String afegirPersonaForm(@PathVariable String persona , @ModelAttribute("novaPersona") Persona novaPersonaAdd, BindingResult result){
+        
+        String[] suprimeixCamps=result.getSuppressedFields();
+        if(suprimeixCamps.length>0){
+            throw new RuntimeException("Attempting to bind disallowed fields "+ StringUtils.arrayToCommaDelimitedString(suprimeixCamps));
+        }
+        personalService.afegirPersona(novaPersonaAdd);
+        return "redirect:/";
+    }
 
+}

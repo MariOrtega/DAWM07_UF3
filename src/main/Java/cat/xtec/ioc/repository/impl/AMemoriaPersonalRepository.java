@@ -35,9 +35,9 @@ public class AMemoriaPersonalRepository implements PersonalRepository{
   public  AMemoriaPersonalRepository(){
        Persona est1=new Estudiant("Albert Ribera","1111111A","0811111/1",93111111,1979,2005);
        Estudiant est2=new Estudiant("Pablo Casado","222222B","0812222/2",912222222,1978,2003);
-       Estudiant est3=new Estudiant("Pablo Iglesias","333333C","083333/2",9133333,1976,2010);
+       Estudiant est3=new Estudiant("Pablo Iglesias","333333C","073333/2",9133333,1976,2010);
        
-       Professor prof1=new Professor("Gabriel Garcia Marquez","081111G","111111/P",6291111,"Periodisme","Literatura");
+       Professor prof1=new Professor("Gabriel Garcia Marquez","081111G","081111/P",6291111,"Periodisme","Literatura");
        Professor prof2=new Professor("Albert Einstein","123456E","1234111/E",987654,"Ciencies","Física");
        Professor prof3= new Professor("Pep Guardiola", "333333P","333333/P", 123987,"Educació física", "Gimnàstica");
        
