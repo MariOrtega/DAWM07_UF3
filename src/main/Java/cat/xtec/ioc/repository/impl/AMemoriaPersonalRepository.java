@@ -33,16 +33,16 @@ public class AMemoriaPersonalRepository implements PersonalRepository{
      * S'ha d'inicialitzar la llista amb 3 persones de cadascun dels tipus.
      */
   public  AMemoriaPersonalRepository(){
-       Persona est1=new Estudiant("Albert Ribera","1111111A","1111111/1",93111111,1979,2005);
-       Estudiant est2=new Estudiant("Pablo Casado","222222B","1112222/2",912222222,1978,2003);
-       Estudiant est3=new Estudiant("Pablo Iglesias","333333C","113333/2",9133333,1976,2010);
+       Persona est1=new Estudiant("Albert Ribera","1111111A","0811111/1",93111111,1979,2005);
+       Estudiant est2=new Estudiant("Pablo Casado","222222B","0812222/2",912222222,1978,2003);
+       Estudiant est3=new Estudiant("Pablo Iglesias","333333C","083333/2",9133333,1976,2010);
        
-       Professor prof1=new Professor("Gabriel Garcia Marquez","111111G","111111/P",6291111,"Periodisme","Literatura");
+       Professor prof1=new Professor("Gabriel Garcia Marquez","081111G","111111/P",6291111,"Periodisme","Literatura");
        Professor prof2=new Professor("Albert Einstein","123456E","1234111/E",987654,"Ciencies","Física");
        Professor prof3= new Professor("Pep Guardiola", "333333P","333333/P", 123987,"Educació física", "Gimnàstica");
        
        Pas pas1=new Pas("Miquel Gonzalez", "6666666M","666666/M",33333343,"Conserge");
-       Pas pas2=new Pas("Paco Perez", "111212P","111212/P",121212,"Vigilant");
+       Pas pas2=new Pas("Paco Perez", "111212P","081212/P",121212,"Vigilant");
        Pas pas3=new Pas("Maria Puig","343434M","343434/M",34343434,"Secretaria");
         
        

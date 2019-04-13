@@ -51,72 +51,32 @@
         </section>
 
         <section>     
-            <div class="jumbotron">
-                <div class="container">
-                    <h2 class="text-danger"><strong>Com fer una petició directament a l'URL ?</strong></h2>
-                </div>
-            </div>
-        </section>
-        <section class="container">
-            <div class="row">
-
-
-
-                <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
-                    <div class="thumbnail">
-                        <div classs="caption">
-                            <h4 class="text-danger"><strong>Com cerquem estudiants?</strong></h4>
-                                <p>Afegir a l'URL dos paràmetres de la seguent manera:
+            <div classs="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3" style="padding-bottom: 15px" >
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h4 class="text-danger"><strong>Creació d'un filtre:</strong></h4>
+                                <p>Heu de canvia la URL per aquest patró:
                                 </p>
-                                <p>persona=Estudiant;provincia={dos primers digits del NSS</p>
+                                <p>persona=Estudiant;provincia=08</p>
 
-                                <p><strong>Exemple:</strong><p>
+                                <p>On persona pot ser els noms de les classes de domini(exactament igual):Professor, Estudiant o Pas<p>
                                 <p>Volem cercar estudiants amb el numero de la seguretat social que comencin per 11</p>
                                 <p>Haurem de posar a continuació de la URL:<p></p><strong> persona=Estudiant;provincia=11</strong></p>
-                                <p>El resultat seria el seguent:  </p>
-                                <a href="http://localhost:8080/dawm07eac3Institut/filtrar/persona=Estudiant;provincia=11" class="btn btn-info" role="button">Link de Prova</a>
-                               
+                                <p>Per exemple si a persona es Estudiant i la provincia es 08 la URL seria "/filtrar/persona=Estudiant;provincia=08"  </p>
+                               <a href="<spring:url value= '/filtrar/persona=Estudiant;provincia=08'/>" class="btn btn-info" role="button">Link de Prova</a>
+                              
+                            </div>
+                           
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
-                    <div class="thumbnail">
-                        <div classs="caption">
-                            <h4 class="text-danger"><strong>Com cerquem Professors?</strong></h4>
-                                <p>Afegir a l'URL dos paràmetres de la seguent manera:
-                                </p>
-                                <p>persona=Professor;provincia={dos primers digits del NSS</p>
-
-                                <p><strong>Exemple:</strong><p>
-                                <p>Volem cercar professors amb el numero de la seguretat social que comencin per 11</p>
-                                <p>Haurem de posar a continuació de la URL: <strong> persona=Professor;provincia=11</strong></p>
-                                <p>El resultat seria el seguent:  </p><a href="http://localhost:8080/dawm07eac3Institut/filtrar/persona=Professor;provincia=11" class="btn btn-info" role="button">Link de Prova</a>
-                               
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
-                    <div class="thumbnail">
-                        <div classs="caption">
-                            <h4 class="text-danger"><strong>Com cerquem Personal d'administracio i serveis?</strong></h4>
-                                <p>Afegir a l'URL dos paràmetres de la seguent manera:
-                                </p>
-                                <p>persona=Pas;provincia={dos primers digits del NSS</p>
-
-                                <p><strong>Exemple:</strong><p>
-                                <p>Volem cercar personal d'aminstració i servei amb el numero de la seguretat social que comencin per 11</p>
-                                <p>Haurem de posar a continuació de la URL: <strong> persona=Pas;provincia=11</strong></p>
-                                <p>El resultat seria el seguent: </p><a href="http://localhost:8080/dawm07eac3Institut/filtrar/persona=Pas;provincia=11" class="btn btn-info" role="button">Link de Prova</a>
-                                
-                        </div>
+                        
                     </div>
                 </div>
 
             </div>
+
+
         </section>
 
 
@@ -124,35 +84,3 @@
     </body>
 </html>
 
-
-<!--
-
- <h4 class="text-danger"><strong>Com cerquem estudiants?</strong></h4>
-                                <p>Afegir a l'URL dos paràmetres de la seguent manera:
-                                </p>
-                                <p>persona=Estudiant;provincia={dos primers digits del NSS</p>
-
-                                <p><strong>Exemple:</strong><p>
-                                <p>Volem cercar estudiants amb el numero de la seguretat social que comencin per 11</p>
-                                <p>Haurem de posar a continuació de la URL: <strong> persona=Estudiant;provincia=11</strong></p>
-                                <p>El resultat seria el seguent: <a href="http://localhost:8080/dawm07eac3Institut/filtrar/persona=Estudiant;provincia=11" class="btn btn-info" role="button">Link de Prova</a>
-                                </p>
-
-
-
-
- <h4 class="text-danger"><strong>Com cerquem professors?</strong></h4>
-                                <p>Afegir a l'URL dos paràmetres de la seguent manera:
-                                </p>
-                                <p>persona=Professor;provincia={dos primers digits del NSS</p>
-
-                                <p><strong>Exemple:</strong><p>
-                                <p>Volem cercar professors amb el numero de la seguretat social que comencin per 11</p>
-                                <p>Haurem de posar a continuació de la URL: <strong> persona=Estudiant;provincia=11</strong></p>
-                                <p>El resultat seria el seguent: <a href="http://localhost:8080/dawm07eac3Institut/filtrar/persona=Professor;provincia=11" class="btn btn-info" role="button">Link de Prova</a>
-                                </p>
-
-
-
-
--->
