@@ -5,6 +5,7 @@
  */
 package cat.xtec.ioc.controller;
 
+import cat.xtec.ioc.domain.Persona;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,7 +77,7 @@ public class InstitutController {
 
         modificar.put("titol", "Modificar");
         modificar.put("desc", "Permet modificar les dades d'una persona");
-        modificar.put("url", "/modificar");
+        modificar.put("url", "/modifica");
         modificar.put("icon", "glyphicon glyphicon-ok");
 
         //afegim els hasmap al listOpcions
@@ -224,5 +225,62 @@ public class InstitutController {
         return modelview;
 
     }
+    
+    /**
+     * Crea un ModelAndView amb la vista “modifica”i li proporciona la següent informació:
+    • cap:  "Programa de Gestió de l'institut"
+    • accio: "Modificació de les dades d'una persona."
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException 
+     */
+    @RequestMapping(value="/modifica", method=RequestMethod.GET)
+    public ModelAndView modificaPersona(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
+       ModelAndView modelview= new ModelAndView("modifica"); 
+       modelview.getModelMap().addAttribute("cap", "Programa de gestió de L'Institut");
+       modelview.getModelMap().addAttribute("accio", "Modificació de les dades d'una persona");
+       return modelview;
+    }
+    /*
+     * Accedeix al servei modificarPersona i processa la modificació amb el nif proporcionat.
+     * Reenvia a l'usuari a veure el nou estat de la persona. 
+        L'adreça utilitzada és: /obtenirPersona/nif
+     */
+     
+    @RequestMapping(value="/modifica/{nif}/{tel}", method=RequestMethod.GET)
+    public String modifica(@PathVariable String nif, @PathVariable long tel){
+        Persona p=personalService.obtenirPersonaPerNif(nif);
+        p.setTelefon(tel);
+        personalService.modificarPersona(p);
+        return "redirect:/obtenirPersona/"+nif;
+       
+    
+    }
+    
+    /**
+     * Crea un ModelAndView amb la vista “infoPersona”i li proporciona la següent informació:
+    • cap:  "Programa de Gestió de l'institut"
+    • accio: "Dades d'una persona de l'institut"
+    • p: Persona corresponent al nif enviat per l'usuari on es veurà la modificació.
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException 
+     */
+    
+    @RequestMapping(value="/obtenirPersona/{nif}", method=RequestMethod.GET)
+     public ModelAndView obtenirPersonaPerPeticio(@PathVariable String nif,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
+         Persona p=personalService.obtenirPersonaPerNif(nif);
+         ModelAndView modelview= new ModelAndView("infoPersona"); 
+       modelview.getModelMap().addAttribute("cap", "Programa de gestió de L'Institut");
+       modelview.getModelMap().addAttribute("accio", "Dades d'una persona de l'Institut");
+       modelview.getModelMap().addAttribute("p",p);
+       return modelview;
+    }
+     }
+     
 
-}
+

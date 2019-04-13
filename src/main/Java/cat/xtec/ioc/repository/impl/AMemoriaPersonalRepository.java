@@ -142,7 +142,14 @@ public class AMemoriaPersonalRepository implements PersonalRepository{
      * @param p 
      */
     public void modificarPersona(Persona p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       for(Persona person:persones){
+           if(person.getNif().equals(p.getNif()))
+           {
+               persones.remove(person);
+               persones.add(p);
+               break;
+           }
+       }
     }
 
    
