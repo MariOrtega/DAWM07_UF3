@@ -1,6 +1,6 @@
 <%-- 
-    Document   : personesPerFiltre
-    Created on : 12-abr-2019, 20:27:19
+    Document   : login
+    Created on : 14-abr-2019, 11:09:49
     Author     : mari
 --%>
 
@@ -8,6 +8,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,52 +29,68 @@
                 <nav>
                     <ul class="nav nav-pills">
                         <li role="presentation" class="active">
-                            <a href="<spring:url value= '/' />">
+                            <a href="<spring:url value= '/'/>">
                                 Inici
                             </a>
                         </li>
-                        <!-- Utilitzant l'etiqueta fes que es mostri el botó per permetre la desconnexió  a l'usuari que ha fet login.  -->
-                         <sec:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')"> 
+                       <!-- Utilitzant l'etiqueta sec:authorize ....>  fes que es mostri el botó per permetre la desconnexió  a l'usuari que ha fet login.  -->
+                         <sec:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">  
                         <li role="Presentation" class="">
-                            <a href="<c:url value= "/j_spring_security_logout"/>" class="btn btndanger btn-mini pull-right">desconnectar</a>
+                            <a href="<c:url value= '/j_spring_security_logout'/>" class="btn btndanger btn-mini pull-right">desconnectar</a>
                         </li>         
                          </sec:authorize> 
                          <!-- fi de la desconnexio -->                         
                     </ul>    
                 </nav>
             </div>
-        </div>   
-
+        </div> 
+                                
+       <!-- capcelera de la pagina login -->
         <!-- Secció del titol de la pagina inici -->                      
         <section>
             <div class="jumbotron">
                 <div class="container">
-                    <h1>${cap}</h1>
-                    <p>${accio}</p>
+                    <h1>Pàgina restringida!!</h1>
+                   
                 </div>
             </div>
         </section>
-                
-                 <!-- Secció de les persones que cumpleixen els requsists 
-                 La pàgina, mitjançant etiquetes JSTL, ha d'iterar sobre el llistat de persones proporcionades pel controlador.
-                 De cadascuna de les persones ha de mostrar la informació continguda a la classe Persona.-->     
-                 <section class="container">
+
+       <!-- fi de la capcelera
+      
+       
+       <!--formulari d'entrada-->
+ <div class="container">
             <div class="row">
-                <c:forEach var="item" items="${persona}">
-                    <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
-                        <div class="thumbnail">
-                            <div classs="caption">
-                                
-                                <h3 class="text-primary"><strong>Nom: </strong>${item.nom}</h3>
-                               <h4><strong>NIF:  </strong>${item.nif}</h4>
-                                <h4><strong>NSS:  </strong>${item.nss}</h4>
-                                <h4><strong>Telèfon:  </strong>${item.telefon}</h4>
-                            </div>
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Si us plau, proporcioni les seves dades</h3>
+                        </div>
+                        <div class="panel-body">
+                            <c:if test="${not empty error}">
+                                <div class="alert alert-danger">
+                                    Credencials incorrectes
+                                </div>
+                            </c:if>
+                            <form action="<c:url value= "/j_spring_security_check"> </c:url>" method="post">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Usuari" name='j_username' type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Contrasenya" name='j_password' type="password">
+                                    </div>
+                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Connectar">
+                                </fieldset>
+                            </form>
                         </div>
                     </div>
-                    </c:forEach>  
+                </div>
             </div>
-        </section>
+        </div>
 
+<!--fi del formulari d'entrada-->
+                                
     </body>
 </html>

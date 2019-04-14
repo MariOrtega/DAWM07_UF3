@@ -5,8 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -23,16 +24,20 @@
 <body>
     <div>
         <div class="container">
-            <nav>
-                <ul class="nav nav-pills">
-                    <li role="presentation" class="active">
-                        <a href="<spring:url value= '/'/>">
-                            Inici
-                        </a>
-                    </li>
-                    <li role="Presentation" class="">
-                        <a href=" />" class="btn btndanger btn-mini pull-right">desconnectar</a>
-                    </li>                        
+                <nav>
+                    <ul class="nav nav-pills">
+                        <li role="presentation" class="active">
+                            <a href="<spring:url value= "/" />">
+                                Inici
+                            </a> 
+                        </li>
+                   <!-- Utilitzant l'etiqueta /sec:authorize> fes que es mostri el botó per permetre la desconnexió  a l'usuari que ha fet login.  -->
+                         <sec:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')"> 
+                        <li role="Presentation" class="">
+                            <a href="<c:url value= '/j_spring_security_logout'/>" class="btn btndanger btn-mini pull-right">desconnectar</a>
+                        </li>         
+                         </sec:authorize> 
+                         <!-- fi de la desconnexio -->                        
                 </ul>    
             </nav>
         </div>
