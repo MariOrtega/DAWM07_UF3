@@ -24,13 +24,13 @@
     </head>
     <body>
         <div>
-            <div class="container">
+           <div class="container">
                 <nav>
                     <ul class="nav nav-pills">
                         <li role="presentation" class="active">
-                            <a href="<spring:url value= '/' />">
+                            <a href="<spring:url value= "/" />">
                                 Inici
-                            </a>
+                            </a> 
                         </li>
                        <!-- Utilitzant l'etiqueta sec:authorize> fes que es mostri el botó per permetre la desconnexió  a l'usuari que ha fet login.  -->
                           <sec:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')"> 
